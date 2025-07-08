@@ -26,15 +26,10 @@ app.use(express.json()); // this middleware will parse JSON bodies: req.body
 app.use(rateLimiter); // rate limiter - 100 requests in 1 minute
 
 
-// our simple custom middlewear
-// app.use((req, res, next) => {
-//     console.log(`Request method is ${req.method} and request URL is ${req.url}`);
-//     next();
-// });
-
 // API routes
 app.use("/api/notes", notesRoutes);
 
+// for production - moving the frontend under the backend domain
 if (process.env.NODE_ENV === "production") {
     app.use(express.static(path.join(__dirname, "../frontend/dist"))); // serve the frontend as a static asset
 
